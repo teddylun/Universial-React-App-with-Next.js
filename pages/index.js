@@ -16,7 +16,7 @@ export default () => (
       <ul>
         <PostLink id="basic-setup-of-nextjs" title="Basic setup of Next.js"/>
         <PostLink id="navagtion-between-pages" title="Navigation between Pages"/>
-        <PostLink id="using-shard-component" title="Using shared component"/>
+        <PostLink id="using-shared-component" title="Using shared component"/>
         <PostLink id="create-dynamic-pages" title="Create Dynamic Pages"/>
       </ul>
     </Layout>
