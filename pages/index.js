@@ -2,22 +2,31 @@
 
 import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
+import fetch from 'isomorphic-unfetch'
 
-const PostLink = (props) => (
-  <li>
-    <Link as={`/course/${props.id}`} href={`/course?title=${props.title}`}>
-      <a>{props.title}</a>
-    </Link>
-  </li>
-)
-export default () => (
+const Index = (props) => (
     <Layout>
       <h1>Next.js Course</h1>
       <ul>
-        <PostLink id="basic-setup-of-nextjs" title="Basic setup of Next.js"/>
-        <PostLink id="navagtion-between-pages" title="Navigation between Pages"/>
-        <PostLink id="using-shared-component" title="Using shared component"/>
-        <PostLink id="create-dynamic-pages" title="Create Dynamic Pages"/>
+        {props.shows.map(({show}) => (
+          <li key={show.id}>
+            <Link as={`/post/${show.id}`} href={`/post?id=${show.id}`}>
+              <a>{show.name}</a>
+            </Link>
+          </li>
+        ))}
       </ul>
     </Layout>
 )
+
+Index.getInitialProps = async () => {
+  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
+  const data = await res.json()
+  console.log(`Show data fetched. Count: ${data.length}`)
+
+  return {
+    shows: data
+  }
+}
+
+export default Index
